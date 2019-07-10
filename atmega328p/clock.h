@@ -7,6 +7,8 @@
 #include <MCP7940.h>
 
 // makros ----------------------------------------------------------------------
+#define DEBUG
+
 #ifdef DEBUG
   #define DEBUG_INIT(baudrate)  Serial.begin(baudrate)
   #define DEBUG_PRINTLN(text)   Serial.println(text)
@@ -44,7 +46,10 @@ class Clock
 
     /**
      @brief   creates and instance of clock
+    */
+    Clock() : pressed_1(1), pressed_2(2), pressed_3(3) { };
 
+    /**
      sets all the pins and debounced switches and connects with rtc
 
      @ param  debounce  sets debounce time for buttons in milliseconds
@@ -52,9 +57,9 @@ class Clock
      @ param  tube_table  requires a [11][4] array which tells the function
                           which bits to push for which number
     */
-    Clock(uint8_t data, uint8_t clock, uint8_t latch, uint8_t dot,
-          uint8_t switch_1, uint8_t switch_2, uint8_t switch_3,
-          uint16_t debounce, uint8_t tube_table[][4]);
+    void init(uint8_t data, uint8_t clock, uint8_t latch, uint8_t dot,
+              uint8_t switch_1, uint8_t switch_2, uint8_t switch_3,
+              uint16_t debounce, uint8_t tube_table[][4]);
     /**
      @brief   fetches time from the rtc
 

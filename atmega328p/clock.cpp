@@ -1,11 +1,13 @@
 #include "clock.h"
 
 // methods ---------------------------------------------------------------------
-Clock::Clock(uint8_t data, uint8_t clock, uint8_t latch, uint8_t dot,
-      uint8_t switch_1, uint8_t switch_2, uint8_t switch_3, uint16_t debounce,
-      uint8_t tube_table[][4])
-      : pin_dot(dot), pressed_1(1), pressed_2(2), pressed_3(3)
+void Clock::init(uint8_t data, uint8_t clock, uint8_t latch, uint8_t dot,
+                 uint8_t switch_1, uint8_t switch_2, uint8_t switch_3, uint16_t debounce,
+                 uint8_t tube_table[][4])
 {
+  // set variables
+  pin_dot = dot;
+  
   // transfer tube_table to member table
   for (uint8_t i = 0; i < 11; i++)
   {

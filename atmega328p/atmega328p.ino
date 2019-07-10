@@ -2,9 +2,6 @@
 //
 // zeno gries
 
-// makros ----------------------------------------------------------------------
-#define DEBUG
-
 // libraries -------------------------------------------------------------------
 #include <Metro.h>
 #include "clock.h"
@@ -41,9 +38,7 @@ Metro time(10);
 Metro dot(10);
 Metro buttons(5);
 
-Clock clock(DATA, CLOCK, LATCH, DOT,
-            SWITCH_1, SWITCH_2, SWITCH_3,
-            debounce_delay, table);
+Clock clock;
 
 // variables -------------------------------------------------------------------
 const uint8_t STATE_NORMAL      = 0;
@@ -64,7 +59,12 @@ uint8_t set_minute;
 // setup -----------------------------------------------------------------------
 void setup()
 {
-  DEBUG_INIT(9600);
+  Serial.begin(9600);
+  Serial.println("test");
+
+  clock.init(DATA, CLOCK, LATCH, DOT,
+             SWITCH_1, SWITCH_2, SWITCH_3,
+             debounce_delay, table);
 }
 
 // loop ------------------------------------------------------------------------
