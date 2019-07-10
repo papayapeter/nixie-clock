@@ -6,17 +6,6 @@
 #include <Shifty.h>
 #include <MCP7940.h>
 
-// makros ----------------------------------------------------------------------
-#define DEBUG
-
-#ifdef DEBUG
-  #define DEBUG_INIT(baudrate)  Serial.begin(baudrate)
-  #define DEBUG_PRINTLN(text)   Serial.println(text)
-#else
-  #define DEBUG_INIT(baudrate)
-  #define DEBUG_PRINTLN(text)
-#endif
-
 // class -----------------------------------------------------------------------
 class Clock
 {

@@ -59,8 +59,7 @@ uint8_t set_minute;
 // setup -----------------------------------------------------------------------
 void setup()
 {
-  Serial.begin(9600);
-  Serial.println("test");
+  //Serial.begin(9600);
 
   clock.init(DATA, CLOCK, LATCH, DOT,
              SWITCH_1, SWITCH_2, SWITCH_3,

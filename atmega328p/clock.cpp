@@ -7,7 +7,7 @@ void Clock::init(uint8_t data, uint8_t clock, uint8_t latch, uint8_t dot,
 {
   // set variables
   pin_dot = dot;
-  
+
   // transfer tube_table to member table
   for (uint8_t i = 0; i < 11; i++)
   {
@@ -31,27 +31,47 @@ void Clock::init(uint8_t data, uint8_t clock, uint8_t latch, uint8_t dot,
   shift.setPins(data, clock, latch);
 
   // set diplay to zero with dot on
-  this->display(0, 0);
   digitalWrite(pin_dot, HIGH);
 
   // begin communication with rtc and start oscillator
+  uint8_t counter = 0;
+  // if cannot connect to rtc
   while (!real_time.begin())
   {
-    // if cannot connect to rtc -> blink fast
+    // count
+    this->display(counter, counter);
+    if (++counter > 99) counter = 0;
+    // and blink fast
     digitalWrite(pin_dot, HIGH);
-    delay(500);
+    delay(200);
     digitalWrite(pin_dot, LOW);
-    delay(500);
+    delay(800);
 
     // debug
-    DEBUG_PRINTLN("cannot connect. reattempting...");
+    //Serial.println("cannot connect. reattempting...");
   }
   // if connected -> turn dot on and start rtc
-  real_time.deviceStart();
+  while (!real_time.deviceStatus())
+  {
+    //Serial.println("Oscillator is off, turning it on.");
+    bool deviceStatus = real_time.deviceStart();
+    if (!deviceStatus)
+    {
+      //Serial.println("Oscillator did not start, trying again.");
+
+      this->display(counter, counter);
+      if (++counter > 99) counter = 0;
+      // and blink fast
+      digitalWrite(pin_dot, HIGH);
+      delay(200);
+      digitalWrite(pin_dot, LOW);
+      delay(800);
+    }
+  }
   digitalWrite(pin_dot, HIGH);
 
   // debug
-  DEBUG_PRINTLN("connected");
+  //Serial.println("connected");
 
   // update and display the time
   this->updateTime();
@@ -64,9 +84,9 @@ bool Clock::updateTime()
   now = real_time.now();
 
   // debug
-  DEBUG_PRINTLN("H: " + String(now.hour()) +
-              "\tM: " + String(now.minute()) +
-              "\tS: " + String(now.second()));
+  //Serial.println("H: " + String(now.hour()) +
+  //             "\tM: " + String(now.minute()) +
+  //             "\tS: " + String(now.second()));
 
   // return true if time has changed
   if (now.minute() != last.minute() || now.hour() != last.hour()) // if time changed
