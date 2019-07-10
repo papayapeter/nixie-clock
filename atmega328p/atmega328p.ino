@@ -70,7 +70,7 @@ void setup()
 // loop ------------------------------------------------------------------------
 void loop()
 {
-  // normal clock reading and updating
+  // normal clock reading and updating -----------------------------------------
   if (state == STATE_NORMAL)
   {
     if (first_on) // if on for the first time -> update and display
@@ -106,7 +106,7 @@ void loop()
       }
     }
   }
-  // clock off
+  // clock off -----------------------------------------------------------------
   else if (state == STATE_CLOCK_OFF)
   {
     if (first_off) // if off for the first time -> turn off
@@ -126,7 +126,7 @@ void loop()
       }
     }
   }
-  // set hour
+  // set hour ------------------------------------------------------------------
   else if (state == STATE_SET_HOUR)
   {
     if (first_hour) // if on set hour for the first time
@@ -163,7 +163,7 @@ void loop()
       }
     }
   }
-  // set minute
+  // set minute ----------------------------------------------------------------
   else if (state == STATE_SET_MINUTE)
   {
     if (first_minute) // if on set minute for the first time
