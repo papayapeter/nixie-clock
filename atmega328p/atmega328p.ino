@@ -59,11 +59,7 @@ uint8_t set_minute;
 // setup -----------------------------------------------------------------------
 void setup()
 {
-<<<<<<< HEAD
   Serial.begin(9600);
-=======
-  //Serial.begin(9600);
->>>>>>> f04bdda672ed95faa596168041d01cac75c94620
 
   clock.init(DATA, CLOCK, LATCH, DOT,
              SWITCH_1, SWITCH_2, SWITCH_3,
